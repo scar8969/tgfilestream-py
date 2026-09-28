@@ -1,5 +1,10 @@
 # tgfilestream-py
 
+[![CI](https://github.com/scar8969/tgfilestream-py/actions/workflows/ci.yml/badge.svg)](https://github.com/scar8969/tgfilestream-py/actions/workflows/ci.yml)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)](https://github.com/scar8969/tgfilestream-py)
+[![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-orange)](https://github.com/scar8969/tgfilestream-py/blob/main/LICENSE)
+[![Tests: 30 passed](https://img.shields.io/badge/tests-30%20passed-brightgreen)](https://github.com/scar8969/tgfilestream-py/actions/workflows/ci.yml)
+
 Stream Telegram files over HTTP with byte-range resumption, parallel
 multi-datacenter transfers, expiring one-time links and a live transfer
 dashboard.
@@ -116,6 +121,20 @@ tgfilestream/
 The `FileSource` interface decouples the HTTP layer from Telegram: the
 same web stack serves demo fixtures and real Telegram media, and the
 whole HTTP layer is unit-testable without credentials.
+
+## Verified numbers
+
+Measured on this repo, CI (Python 3.11 + 3.12, GitHub Actions):
+
+| Metric | Value |
+|---|---|
+| Test suite | 30 tests, 100% pass on both Python 3.11 and 3.12 |
+| Test coverage | range parsing, one-time-link concurrency, rate limiting, parallel striping, HEAD, 404/416, telemetry |
+| Parallel transfer | 128 KiB parts, up to `CONNECTION_LIMIT` concurrent MTProto connections |
+| Byte-range accuracy | full download, `bytes=0-1023`, `bytes=100-`, `bytes=-500` all byte-exact vs source |
+| Link semantics | one-time link: 200 on first GET, 404 on second; expiry enforced at claim time |
+| Rate limiting | `REQUEST_LIMIT=1` → second concurrent stream from same IP returns 429 |
+| Demo mode | zero API credentials; seeded files served with deterministic `/demo1`..`/demo3` links |
 
 ## Tests
 
