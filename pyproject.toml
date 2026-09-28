@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tgfilestream-py"
+version = "1.0.0"
+description = "Telegram file streaming over HTTP with byte-range resumption, parallel multi-DC transfers, expiring one-time links and a live transfer dashboard."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "AGPL-3.0-or-later" }
+dependencies = [
+    "telethon>=1.34",
+    "aiohttp>=3.9",
+    "yarl>=1.9",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+tgfilestream = "tgfilestream.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["tgfilestream*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
