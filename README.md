@@ -20,6 +20,8 @@ Telegram ──MTProto──▶ bot ──link──▶ HTTP client
                           └─ /                 live dashboard
 ```
 
+![Live transfer dashboard](docs/dashboard.png)
+
 ## Why this exists
 
 Telegram's own apps download files over MTProto with parallel connections
